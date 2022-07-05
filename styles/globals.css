@@ -34,6 +34,10 @@ a:active {
   text-decoration: none;
 }
 
+button {
+  background: none;
+}
+
 :root {
   --color-primary: #3b4c64;
   --color-primary-light: #597193;
