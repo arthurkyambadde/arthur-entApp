@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{2409:function(n,o){},2411:function(n,o){}}]);
+//# sourceMappingURL=https://upwork-usw2-staging-assets-jsmaps.s3.us-west-2.amazonaws.com/FreelancerProfileNuxt/broadcast-channel-7gQGj.c0ada732.js.map

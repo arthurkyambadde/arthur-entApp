@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[63],{255:function(t,n,r){"use strict";r.r(n);var e={},w=r(3),component=Object(w.a)(e,(function(){var t=this._self._c;return t("svg",{attrs:{xmlns:"http://www.w3.org/2000/svg","aria-hidden":"true",viewBox:"0 0 14 14",role:"img"}},[t("path",{attrs:{d:"M8 6V3H6v3H3v2h3v3h2V8h3V6H8zm-1 8A7 7 0 117.001-.001 7 7 0 017 14z"}})])}),[],!1,null,null,null);n.default=component.exports}}]);
+//# sourceMappingURL=https://upwork-usw2-staging-assets-jsmaps.s3.us-west-2.amazonaws.com/FreelancerProfileNuxt/add-circle-PvZu8.8436c977.js.map
