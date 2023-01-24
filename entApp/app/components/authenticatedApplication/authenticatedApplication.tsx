@@ -4,7 +4,7 @@ import styles from './styles.css';
 import { Movie, useMovieDataStore } from '~/store/data';
 
 import logo from '../../../public/assets/logo.svg';
-import avatar from '../../../public/assets/image-avatar.png';
+import avatar from '../../../public/assets/image-avatar.jpeg';
 
 import { icons } from '~/utils/data';
 import { SearchInput } from '../Inputs/search/Search';
@@ -85,7 +85,7 @@ export const AuthenticatedApplication = () => {
           <div className="navigation_icons">{listItems}</div>
         </div>
         <div>
-          <img src={avatar} />
+          <img src={avatar} className="logo" />
         </div>
       </div>
       <div className="category_container">
