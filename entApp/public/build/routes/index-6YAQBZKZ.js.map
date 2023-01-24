@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../app/routes/index.tsx"],
+  "sourcesContent": ["import { useEffect } from \"react\";\n\nexport default function Index() {\n  useEffect(() => {\n    if (window.location) {\n      window.location.href = \"/signUp\";\n    }\n  });\n}\n"],
+  "mappings": ";;;;;;AAAA,mBAA0B;AAEX,SAAR,QAAyB;AAC9B,8BAAU,MAAM;AACd,QAAI,OAAO,UAAU;AACnB,aAAO,SAAS,OAAO;AAAA,IACzB;AAAA,EACF,CAAC;AACH;",
+  "names": []
+}

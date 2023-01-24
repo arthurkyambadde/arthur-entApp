@@ -1,0 +1,10 @@
+/* app/components/bookmark/styles.css */
+.bookmark_container {
+  width: 255px;
+  height: 174px;
+}
+.bookmark_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}

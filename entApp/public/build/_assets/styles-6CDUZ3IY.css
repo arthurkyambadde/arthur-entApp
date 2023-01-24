@@ -1,0 +1,26 @@
+/* app/components/thumbnail/styles.css */
+.thumbnail_image {
+  width: 255px;
+  height: 174px;
+  border-radius: 8px;
+}
+.thumbnail_container {
+  position: relative;
+}
+.play_icon--container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #FFFFFF;
+  mix-blend-mode: normal;
+  opacity: .25;
+  border-radius: 28.5px;
+}
+.play_tag {
+  font-weight: 500;
+  font-size: 18px;
+  color: #fff;
+}

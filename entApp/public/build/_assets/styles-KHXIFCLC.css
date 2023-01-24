@@ -1,0 +1,7 @@
+/* app/components/button/styles.css */
+.primary_button {
+  width: 336px;
+  height: 48px;
+  background: #FC4747;
+  border-radius: 6px;
+}

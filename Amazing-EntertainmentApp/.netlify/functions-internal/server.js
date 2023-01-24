@@ -61,7 +61,7 @@ __export(root_exports, {
 var import_react2 = require("@remix-run/react");
 
 // app/styles/shared.css
-var shared_default = "/build/_assets/shared-UILCKXNK.css";
+var shared_default = "/build/_assets/shared-IRZJ6FDV.css";
 
 // app/root.tsx
 var import_jsx_dev_runtime = require("react/jsx-dev-runtime");
@@ -138,7 +138,7 @@ function App() {
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index,
-  links: () => links4
+  links: () => links6
 });
 
 // app/components/Inputs/search/Search.tsx
@@ -195,12 +195,6 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links2 = () => [{
 );
 SearchInput.displayName = "Search Input";
 
-// app/components/Inputs/email/Email.tsx
-var import_react4 = require("react"), import_react5 = require("react"), import_react6 = __toESM(require("react"));
-
-// app/components/Inputs/email/styles.css
-var styles_default2 = "/build/_assets/styles-HIXJVU3A.css";
-
 // app/constants/errors.ts
 var errors_default = {
   EMPTY_EMAIL: "can't be empty",
@@ -213,58 +207,223 @@ function validateEmail(email) {
   return email ? /^[a-zA-Z][^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email) ? errors_default.NO_ERROR : errors_default.INVALID_EMAIL : errors_default.EMPTY_EMAIL;
 }
 
-// app/components/Inputs/email/Email.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links3 = () => [{ rel: "stylesheet", href: styles_default2 }], EmailInput = import_react6.default.forwardRef(
+// app/components/Inputs/text/TextInput.tsx
+var import_react4 = require("react"), import_react5 = require("react"), import_react6 = __toESM(require("react"));
+
+// app/components/Inputs/text/styles.css
+var styles_default2 = "/build/_assets/styles-E75LOUBT.css";
+
+// app/components/Inputs/text/TextInput.tsx
+var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links3 = () => [{ rel: "stylesheet", href: styles_default2 }], TextInput = import_react6.default.forwardRef(
   ({ children, ...props }, ref) => {
     let [error, setError] = (0, import_react5.useState)(""), innerRef = (0, import_react4.useRef)(null), doValidation = () => {
       var _a;
       let currentInputText = (_a = innerRef.current) == null ? void 0 : _a.value;
-      if (currentInputText !== void 0) {
-        let result = validateEmail(currentInputText);
+      if (currentInputText !== void 0 && props.validationFn) {
+        let result = props.validationFn(currentInputText);
         setError(result);
       }
     };
     return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", {
-      className: "email_container",
+      className: "input_container",
       htmlFor: props.id,
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", {
           id: "email",
-          className: "email_input small_heading",
-          type: "email",
+          className: "input_field small_heading",
+          type: props.type,
           ref: innerRef,
           ...props,
-          placeholder: "Email address",
+          placeholder: props.placeholder,
           required: !0,
-          "data-testid": "email-input",
+          "data-testid": "text-input",
           onFocus: doValidation,
           onChange: doValidation
         }, void 0, !1, {
-          fileName: "app/components/Inputs/email/Email.tsx",
-          lineNumber: 33,
+          fileName: "app/components/Inputs/text/TextInput.tsx",
+          lineNumber: 35,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
-          "data-testid": "email-error",
+          "data-testid": "input-error",
           className: "text-message",
           children: error
         }, void 0, !1, {
-          fileName: "app/components/Inputs/email/Email.tsx",
-          lineNumber: 45,
+          fileName: "app/components/Inputs/text/TextInput.tsx",
+          lineNumber: 47,
           columnNumber: 9
         }, this)
       ]
     }, void 0, !0, {
-      fileName: "app/components/Inputs/email/Email.tsx",
-      lineNumber: 32,
+      fileName: "app/components/Inputs/text/TextInput.tsx",
+      lineNumber: 34,
       columnNumber: 7
     }, this);
   }
 );
-EmailInput.displayName = "Email Input";
+TextInput.displayName = "Text Input";
+
+// app/components/buttons/styles.css
+var styles_default3 = "/build/_assets/styles-LWFDD66L.css";
+
+// app/components/buttons/LoginButton.tsx
+var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{ rel: "stylesheet", href: styles_default3 }], LoginButton = (props) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", {
+  className: "btn small_normal_text",
+  "data-testid": "login-button",
+  children: props.children
+}, void 0, !1, {
+  fileName: "app/components/buttons/LoginButton.tsx",
+  lineNumber: 12,
+  columnNumber: 5
+}, this);
+
+// app/pages/home/thumbnail/Thumbnail.tsx
+var import_react7 = require("react");
+
+// app/components/bookmark-icons/idle-icon/IdleIcon.tsx
+var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), IdleIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+  className,
+  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+    width: "12",
+    height: "14",
+    xmlns: "http://www.w3.org/2000/svg",
+    "data-testid": "idle-icon",
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+      d: "m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z",
+      strokeWidth: "1.5",
+      fill: "none"
+    }, void 0, !1, {
+      fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
+      lineNumber: 15,
+      columnNumber: 9
+    }, this)
+  }, void 0, !1, {
+    fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
+    lineNumber: 9,
+    columnNumber: 7
+  }, this)
+}, void 0, !1, {
+  fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
+  lineNumber: 8,
+  columnNumber: 5
+}, this);
+
+// app/components/bookmark-icons/active-icon/ActiveIcon.tsx
+var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), ActiveIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+  className,
+  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+    width: "12",
+    height: "14",
+    xmlns: "http://www.w3.org/2000/svg",
+    "data-testid": "active-icon",
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+      d: "M10.61 0c.14 0 .273.028.4.083a1.03 1.03 0 0 1 .657.953v11.928a1.03 1.03 0 0 1-.656.953c-.116.05-.25.074-.402.074-.291 0-.543-.099-.756-.296L5.833 9.77l-4.02 3.924c-.218.203-.47.305-.756.305a.995.995 0 0 1-.4-.083A1.03 1.03 0 0 1 0 12.964V1.036A1.03 1.03 0 0 1 .656.083.995.995 0 0 1 1.057 0h9.552Z",
+      fill: "#FFF"
+    }, void 0, !1, {
+      fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
+      lineNumber: 16,
+      columnNumber: 9
+    }, this)
+  }, void 0, !1, {
+    fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
+    lineNumber: 10,
+    columnNumber: 7
+  }, this)
+}, void 0, !1, {
+  fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
+  lineNumber: 9,
+  columnNumber: 5
+}, this);
+
+// app/pages/home/thumbnail/styles.css
+var styles_default4 = "/build/_assets/styles-BOS4AQVI.css";
+
+// app/pages/home/thumbnail/Thumbnail.tsx
+var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links5 = () => [{ rel: "stylesheet", href: styles_default4 }], Thumbnail = ({ name, src }) => {
+  let [bookmarked, setbookmarked] = (0, import_react7.useState)(!1);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className: "thumbnail-container",
+    "data-testid": "thumbnail",
+    onClick: () => setbookmarked(!0),
+    children: [
+      bookmarked ? /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(ActiveIcon, {
+        className: "bookmark-icon active-bookmark"
+      }, void 0, !1, {
+        fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+        lineNumber: 23,
+        columnNumber: 9
+      }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(IdleIcon, {
+        className: "bookmark-icon idle-bookmark"
+      }, void 0, !1, {
+        fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+        lineNumber: 25,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
+        alt: name,
+        src,
+        className: "thumbnail-img"
+      }, void 0, !1, {
+        fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+        lineNumber: 27,
+        columnNumber: 7
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+        className: "hover-container",
+        children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+          className: "controls-wrapper",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+              width: "30",
+              height: "30",
+              xmlns: "http://www.w3.org/2000/svg",
+              children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+                d: "M15 0C6.713 0 0 6.713 0 15c0 8.288 6.713 15 15 15 8.288 0 15-6.712 15-15 0-8.287-6.712-15-15-15Zm-3 21V8l9 6.5-9 6.5Z",
+                fill: "#fff"
+              }, void 0, !1, {
+                fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+                lineNumber: 31,
+                columnNumber: 13
+              }, this)
+            }, void 0, !1, {
+              fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+              lineNumber: 30,
+              columnNumber: 11
+            }, this),
+            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
+              className: "extra_small_heading",
+              children: "Play"
+            }, void 0, !1, {
+              fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+              lineNumber: 36,
+              columnNumber: 11
+            }, this)
+          ]
+        }, void 0, !0, {
+          fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+          lineNumber: 29,
+          columnNumber: 9
+        }, this)
+      }, void 0, !1, {
+        fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+        lineNumber: 28,
+        columnNumber: 7
+      }, this)
+    ]
+  }, void 0, !0, {
+    fileName: "app/pages/home/thumbnail/Thumbnail.tsx",
+    lineNumber: 17,
+    columnNumber: 5
+  }, this);
+};
 
 // app/routes/index.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [...links2(), ...links3()];
+var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links6 = () => [
+  ...links2(),
+  ...links3(),
+  ...links4(),
+  ...links5()
+];
 function Index() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
     style: { fontFamily: "system-ui, sans-serif", lineHeight: "1.4" },
@@ -273,24 +432,43 @@ function Index() {
         id: "__search_bar_input__"
       }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 16,
+        lineNumber: 33,
         columnNumber: 7
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(EmailInput, {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(TextInput, {
+        type: "email",
+        placeholder: "Email Address",
+        validationFn: validateEmail
+      }, void 0, !1, {
         fileName: "app/routes/index.tsx",
-        lineNumber: 17,
+        lineNumber: 34,
+        columnNumber: 7
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(LoginButton, {
+        children: "Login to your account"
+      }, void 0, !1, {
+        fileName: "app/routes/index.tsx",
+        lineNumber: 40,
+        columnNumber: 7
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Thumbnail, {
+        name: "earth",
+        src: "assets/thumbnails/earths-untouched/regular/medium.jpg"
+      }, void 0, !1, {
+        fileName: "app/routes/index.tsx",
+        lineNumber: 42,
         columnNumber: 7
       }, this)
     ]
   }, void 0, !0, {
     fileName: "app/routes/index.tsx",
-    lineNumber: 15,
+    lineNumber: 32,
     columnNumber: 5
   }, this);
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "0795178a", entry: { module: "/build/entry.client-6ALRIWEB.js", imports: ["/build/_shared/chunk-QFI44WFR.js", "/build/_shared/chunk-IE366Y5W.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-NRJR254O.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-7CZM3OA4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-0795178A.js" };
+var assets_manifest_default = { version: "9a07ebf7", entry: { module: "/build/entry.client-RKVSGYLS.js", imports: ["/build/_shared/chunk-HOXLABUL.js", "/build/_shared/chunk-IE366Y5W.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-4PMO4BG7.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-MY3SO7M4.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-9A07EBF7.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", publicPath = "/build/", entry = { module: entry_server_exports }, routes = {

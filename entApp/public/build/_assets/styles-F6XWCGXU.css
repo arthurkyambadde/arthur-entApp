@@ -1,0 +1,12 @@
+/* app/components/thumbnail/styles.css */
+.thumbnail_image {
+  width: 255px;
+  height: 174px;
+  border-radius: 8px;
+}
+.thumbnail_container {
+  position: relative;
+}
+.play_icon {
+  position: absolute;
+}

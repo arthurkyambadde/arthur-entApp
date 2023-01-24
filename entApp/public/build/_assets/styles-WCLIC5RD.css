@@ -1,0 +1,13 @@
+/* app/components/authenticatedApplication/styles.css */
+.authenticated_user {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-blue);
+  padding: 32px;
+}
+.navigation_bar {
+  width: 96px;
+  height: 100vh;
+  background-color: var(--greyish-blue);
+}

@@ -1,0 +1,16 @@
+/* app/components/logIn/styles.css */
+.logIn_container {
+  width: 400px;
+  height: 373px;
+  background: #161D2F;
+  border-radius: 20px;
+  display: flex;
+  padding: 32px;
+}
+.logIn_header {
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -.5px;
+  color: #fff;
+}

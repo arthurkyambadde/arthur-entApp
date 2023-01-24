@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../app/routes/auth/index.tsx"],
+  "sourcesContent": ["import React from 'react';\n\nfunction authentication() {\n  return <div>authentication</div>;\n}\n\nexport default authentication;\n"],
+  "mappings": ";;;;;;AAAA;AAEA,SAAS,iBAAiB;AACxB,SAAO,mDAAC;AAAA,IAAI;AAAA,KAAL;AAAA;AAAA;AAAA;AAAA,SAAmB;AAC5B;AAEA,IAAO,eAAQ;",
+  "names": []
+}
