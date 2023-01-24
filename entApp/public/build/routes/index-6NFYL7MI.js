@@ -1,173 +1,259 @@
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf, __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: !0 });
-}, __copyProps = (to, from, except, desc) => {
-  if (from && typeof from == "object" || typeof from == "function")
-    for (let key of __getOwnPropNames(from))
-      !__hasOwnProp.call(to, key) && key !== except && __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: !0 }) : target,
-  mod
-)), __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: !0 }), mod);
+import {
+  __commonJS,
+  __toESM,
+  require_jsx_dev_runtime,
+  require_react
+} from "/build/_shared/chunk-IE366Y5W.js";
 
-// <stdin>
-var stdin_exports = {};
-__export(stdin_exports, {
-  assets: () => assets_manifest_default,
-  assetsBuildDirectory: () => assetsBuildDirectory,
-  entry: () => entry,
-  publicPath: () => publicPath,
-  routes: () => routes
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
+var require_use_sync_external_store_shim_development = __commonJS({
+  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js"(exports) {
+    "use strict";
+    if (true) {
+      (function() {
+        "use strict";
+        if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
+          __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
+        }
+        var React6 = require_react();
+        var ReactSharedInternals = React6.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+        function error(format) {
+          {
+            {
+              for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+                args[_key2 - 1] = arguments[_key2];
+              }
+              printWarning("error", format, args);
+            }
+          }
+        }
+        function printWarning(level, format, args) {
+          {
+            var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
+            var stack = ReactDebugCurrentFrame.getStackAddendum();
+            if (stack !== "") {
+              format += "%s";
+              args = args.concat([stack]);
+            }
+            var argsWithFormat = args.map(function(item) {
+              return String(item);
+            });
+            argsWithFormat.unshift("Warning: " + format);
+            Function.prototype.apply.call(console[level], console, argsWithFormat);
+          }
+        }
+        function is(x, y) {
+          return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
+        }
+        var objectIs = typeof Object.is === "function" ? Object.is : is;
+        var useState6 = React6.useState, useEffect2 = React6.useEffect, useLayoutEffect = React6.useLayoutEffect, useDebugValue2 = React6.useDebugValue;
+        var didWarnOld18Alpha = false;
+        var didWarnUncachedGetSnapshot = false;
+        function useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
+          {
+            if (!didWarnOld18Alpha) {
+              if (React6.startTransition !== void 0) {
+                didWarnOld18Alpha = true;
+                error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
+              }
+            }
+          }
+          var value = getSnapshot();
+          {
+            if (!didWarnUncachedGetSnapshot) {
+              var cachedValue = getSnapshot();
+              if (!objectIs(value, cachedValue)) {
+                error("The result of getSnapshot should be cached to avoid an infinite loop");
+                didWarnUncachedGetSnapshot = true;
+              }
+            }
+          }
+          var _useState = useState6({
+            inst: {
+              value,
+              getSnapshot
+            }
+          }), inst = _useState[0].inst, forceUpdate = _useState[1];
+          useLayoutEffect(function() {
+            inst.value = value;
+            inst.getSnapshot = getSnapshot;
+            if (checkIfSnapshotChanged(inst)) {
+              forceUpdate({
+                inst
+              });
+            }
+          }, [subscribe, value, getSnapshot]);
+          useEffect2(function() {
+            if (checkIfSnapshotChanged(inst)) {
+              forceUpdate({
+                inst
+              });
+            }
+            var handleStoreChange = function() {
+              if (checkIfSnapshotChanged(inst)) {
+                forceUpdate({
+                  inst
+                });
+              }
+            };
+            return subscribe(handleStoreChange);
+          }, [subscribe]);
+          useDebugValue2(value);
+          return value;
+        }
+        function checkIfSnapshotChanged(inst) {
+          var latestGetSnapshot = inst.getSnapshot;
+          var prevValue = inst.value;
+          try {
+            var nextValue = latestGetSnapshot();
+            return !objectIs(prevValue, nextValue);
+          } catch (error2) {
+            return true;
+          }
+        }
+        function useSyncExternalStore$1(subscribe, getSnapshot, getServerSnapshot) {
+          return getSnapshot();
+        }
+        var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
+        var isServerEnvironment = !canUseDOM;
+        var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore;
+        var useSyncExternalStore$2 = React6.useSyncExternalStore !== void 0 ? React6.useSyncExternalStore : shim;
+        exports.useSyncExternalStore = useSyncExternalStore$2;
+        if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
+          __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
+        }
+      })();
+    }
+  }
 });
-module.exports = __toCommonJS(stdin_exports);
 
-// app/entry.server.tsx
-var entry_server_exports = {};
-__export(entry_server_exports, {
-  default: () => handleRequest
+// node_modules/use-sync-external-store/shim/index.js
+var require_shim = __commonJS({
+  "node_modules/use-sync-external-store/shim/index.js"(exports, module) {
+    "use strict";
+    if (false) {
+      module.exports = null;
+    } else {
+      module.exports = require_use_sync_external_store_shim_development();
+    }
+  }
 });
-var import_react = require("@remix-run/react"), import_server = require("react-dom/server"), import_jsx_dev_runtime = require("react/jsx-dev-runtime");
-function handleRequest(request, responseStatusCode, responseHeaders, remixContext) {
-  let markup = (0, import_server.renderToString)(
-    /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react.RemixServer, {
-      context: remixContext,
-      url: request.url
-    }, void 0, !1, {
-      fileName: "app/entry.server.tsx",
-      lineNumber: 12,
-      columnNumber: 5
-    }, this)
-  );
-  return responseHeaders.set("Content-Type", "text/html"), new Response("<!DOCTYPE html>" + markup, {
-    headers: responseHeaders,
-    status: responseStatusCode
-  });
-}
 
-// app/root.tsx
-var root_exports = {};
-__export(root_exports, {
-  default: () => App,
-  links: () => links,
-  meta: () => meta
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js
+var require_with_selector_development = __commonJS({
+  "node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js"(exports) {
+    "use strict";
+    if (true) {
+      (function() {
+        "use strict";
+        if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
+          __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
+        }
+        var React6 = require_react();
+        var shim = require_shim();
+        function is(x, y) {
+          return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
+        }
+        var objectIs = typeof Object.is === "function" ? Object.is : is;
+        var useSyncExternalStore = shim.useSyncExternalStore;
+        var useRef2 = React6.useRef, useEffect2 = React6.useEffect, useMemo = React6.useMemo, useDebugValue2 = React6.useDebugValue;
+        function useSyncExternalStoreWithSelector2(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
+          var instRef = useRef2(null);
+          var inst;
+          if (instRef.current === null) {
+            inst = {
+              hasValue: false,
+              value: null
+            };
+            instRef.current = inst;
+          } else {
+            inst = instRef.current;
+          }
+          var _useMemo = useMemo(function() {
+            var hasMemo = false;
+            var memoizedSnapshot;
+            var memoizedSelection;
+            var memoizedSelector = function(nextSnapshot) {
+              if (!hasMemo) {
+                hasMemo = true;
+                memoizedSnapshot = nextSnapshot;
+                var _nextSelection = selector(nextSnapshot);
+                if (isEqual !== void 0) {
+                  if (inst.hasValue) {
+                    var currentSelection = inst.value;
+                    if (isEqual(currentSelection, _nextSelection)) {
+                      memoizedSelection = currentSelection;
+                      return currentSelection;
+                    }
+                  }
+                }
+                memoizedSelection = _nextSelection;
+                return _nextSelection;
+              }
+              var prevSnapshot = memoizedSnapshot;
+              var prevSelection = memoizedSelection;
+              if (objectIs(prevSnapshot, nextSnapshot)) {
+                return prevSelection;
+              }
+              var nextSelection = selector(nextSnapshot);
+              if (isEqual !== void 0 && isEqual(prevSelection, nextSelection)) {
+                return prevSelection;
+              }
+              memoizedSnapshot = nextSnapshot;
+              memoizedSelection = nextSelection;
+              return nextSelection;
+            };
+            var maybeGetServerSnapshot = getServerSnapshot === void 0 ? null : getServerSnapshot;
+            var getSnapshotWithSelector = function() {
+              return memoizedSelector(getSnapshot());
+            };
+            var getServerSnapshotWithSelector = maybeGetServerSnapshot === null ? void 0 : function() {
+              return memoizedSelector(maybeGetServerSnapshot());
+            };
+            return [getSnapshotWithSelector, getServerSnapshotWithSelector];
+          }, [getSnapshot, getServerSnapshot, selector, isEqual]), getSelection = _useMemo[0], getServerSelection = _useMemo[1];
+          var value = useSyncExternalStore(subscribe, getSelection, getServerSelection);
+          useEffect2(function() {
+            inst.hasValue = true;
+            inst.value = value;
+          }, [value]);
+          useDebugValue2(value);
+          return value;
+        }
+        exports.useSyncExternalStoreWithSelector = useSyncExternalStoreWithSelector2;
+        if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
+          __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
+        }
+      })();
+    }
+  }
 });
-var import_react2 = require("@remix-run/react");
 
-// app/styles/shared.css
-var shared_default = "/build/_assets/shared-QQ634MJP.css";
-
-// app/root.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime");
-function links() {
-  return [{ rel: "stylesheet", href: shared_default }];
-}
-var meta = () => ({
-  charset: "utf-8",
-  title: "Entertainment App",
-  viewport: "width=device-width,initial-scale=1",
-  author: "Daniel Ssejjemba",
-  description: "A movie watching application with profiled reccomendation and categorisation",
-  keywords: "movies, entertainment, tv shows, designs"
-});
-function App() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("html", {
-    lang: "en",
-    children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("head", {
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react2.Meta, {}, void 0, !1, {
-            fileName: "app/root.tsx",
-            lineNumber: 31,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react2.Links, {}, void 0, !1, {
-            fileName: "app/root.tsx",
-            lineNumber: 32,
-            columnNumber: 9
-          }, this)
-        ]
-      }, void 0, !0, {
-        fileName: "app/root.tsx",
-        lineNumber: 30,
-        columnNumber: 7
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("body", {
-        children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react2.Outlet, {}, void 0, !1, {
-            fileName: "app/root.tsx",
-            lineNumber: 35,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react2.ScrollRestoration, {}, void 0, !1, {
-            fileName: "app/root.tsx",
-            lineNumber: 36,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react2.Scripts, {}, void 0, !1, {
-            fileName: "app/root.tsx",
-            lineNumber: 37,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_react2.LiveReload, {}, void 0, !1, {
-            fileName: "app/root.tsx",
-            lineNumber: 38,
-            columnNumber: 9
-          }, this)
-        ]
-      }, void 0, !0, {
-        fileName: "app/root.tsx",
-        lineNumber: 34,
-        columnNumber: 7
-      }, this)
-    ]
-  }, void 0, !0, {
-    fileName: "app/root.tsx",
-    lineNumber: 29,
-    columnNumber: 5
-  }, this);
-}
-
-// app/routes/auth/index.tsx
-var auth_exports = {};
-__export(auth_exports, {
-  default: () => auth_default
-});
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime");
-function authentication() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-    children: "authentication"
-  }, void 0, !1, {
-    fileName: "app/routes/auth/index.tsx",
-    lineNumber: 4,
-    columnNumber: 10
-  }, this);
-}
-var auth_default = authentication;
-
-// app/routes/index.tsx
-var routes_exports = {};
-__export(routes_exports, {
-  default: () => Index,
-  links: () => links8
+// node_modules/use-sync-external-store/shim/with-selector.js
+var require_with_selector = __commonJS({
+  "node_modules/use-sync-external-store/shim/with-selector.js"(exports, module) {
+    "use strict";
+    if (false) {
+      module.exports = null;
+    } else {
+      module.exports = require_with_selector_development();
+    }
+  }
 });
 
 // app/components/Inputs/search/Search.tsx
-var import_react3 = require("react"), import_react4 = __toESM(require("react"));
+var import_react = __toESM(require_react());
 
 // app/components/Inputs/search/styles.css
 var styles_default = "/build/_assets/styles-IYIZM2P2.css";
 
 // app/components/Inputs/search/Search.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links2 = () => [{ rel: "stylesheet", href: styles_default }], SearchInput = import_react4.default.forwardRef(
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links = () => [{ rel: "stylesheet", href: styles_default }];
+var SearchInput = import_react.default.forwardRef(
   ({ children, ...props }, ref) => {
-    let [searchfield, setsearchfield] = (0, import_react3.useState)(""), handleChange = (e) => {
+    const { setsearchfield } = props;
+    const handleChange = (e) => {
       setsearchfield(e.currentTarget.value);
     };
     return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", {
@@ -184,14 +270,14 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links2 = () => [{
             clipRule: "evenodd",
             d: "M19.08 17.2L23.6133 21.72C23.8657 21.9704 24.0077 22.3111 24.0077 22.6667C24.0077 23.0222 23.8657 23.363 23.6133 23.6133C23.363 23.8657 23.0222 24.0077 22.6667 24.0077C22.3111 24.0077 21.9704 23.8657 21.72 23.6133L17.2 19.08C15.3366 20.5426 13.0355 21.3363 10.6667 21.3333C4.77563 21.3333 0 16.5577 0 10.6667C0 4.77563 4.77563 0 10.6667 0C16.5577 0 21.3333 4.77563 21.3333 10.6667C21.3363 13.0355 20.5426 15.3366 19.08 17.2ZM10.6667 2.66667C6.24839 2.66667 2.66667 6.24839 2.66667 10.6667C2.66667 15.0849 6.24839 18.6667 10.6667 18.6667C15.0849 18.6667 18.6667 15.0849 18.6667 10.6667C18.6667 6.24839 15.0849 2.66667 10.6667 2.66667Z",
             fill: "white"
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/Inputs/search/Search.tsx",
-            lineNumber: 30,
+            lineNumber: 31,
             columnNumber: 11
           }, this)
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/Inputs/search/Search.tsx",
-          lineNumber: 24,
+          lineNumber: 25,
           columnNumber: 9
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", {
@@ -200,18 +286,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links2 = () => [{
           type: "search",
           ...props,
           ref,
-          "data-search-input": !0,
+          "data-search-input": true,
           placeholder: "Search for movies or TV series",
           onChange: handleChange
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/Inputs/search/Search.tsx",
-          lineNumber: 38,
+          lineNumber: 39,
           columnNumber: 9
         }, this)
       ]
-    }, void 0, !0, {
+    }, void 0, true, {
       fileName: "app/components/Inputs/search/Search.tsx",
-      lineNumber: 23,
+      lineNumber: 24,
       columnNumber: 7
     }, this);
   }
@@ -222,10 +308,11 @@ SearchInput.displayName = "Search Input";
 var styles_default2 = "/build/_assets/styles-ZPRPZPDR.css";
 
 // app/components/button/button.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links3 = () => [{ rel: "stylesheet", href: styles_default2 }];
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links2 = () => [{ rel: "stylesheet", href: styles_default2 }];
 
 // app/components/thumbnail/thumbnail.tsx
-var import_react5 = require("react");
+var import_react2 = __toESM(require_react());
 
 // app/components/thumbnail/styles.css
 var styles_default3 = "/build/_assets/styles-QXZOYM3Z.css";
@@ -234,77 +321,96 @@ var styles_default3 = "/build/_assets/styles-QXZOYM3Z.css";
 var iconPlay_default = "/build/_assets/iconPlay-NBIN7PHU.svg";
 
 // app/components/bookmark-icons/idle-icon/IdleIcon.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), IdleIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-  className,
-  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
-    width: "12",
-    height: "14",
-    xmlns: "http://www.w3.org/2000/svg",
-    "data-testid": "idle-icon",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
-      d: "m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z",
-      strokeWidth: "1.5",
-      fill: "none"
-    }, void 0, !1, {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var IdleIcon = ({ className }) => {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className,
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+      width: "12",
+      height: "14",
+      xmlns: "http://www.w3.org/2000/svg",
+      "data-testid": "idle-icon",
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+        d: "m10.518.75.399 12.214-5.084-4.24-4.535 4.426L.75 1.036l9.768-.285Z",
+        strokeWidth: "1.5",
+        fill: "none"
+      }, void 0, false, {
+        fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
+        lineNumber: 15,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
-      lineNumber: 15,
-      columnNumber: 9
+      lineNumber: 9,
+      columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
-    lineNumber: 9,
-    columnNumber: 7
-  }, this)
-}, void 0, !1, {
-  fileName: "app/components/bookmark-icons/idle-icon/IdleIcon.tsx",
-  lineNumber: 8,
-  columnNumber: 5
-}, this);
+    lineNumber: 8,
+    columnNumber: 5
+  }, this);
+};
 
 // app/components/bookmark-icons/active-icon/ActiveIcon.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), ActiveIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-  className,
-  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
-    width: "12",
-    height: "14",
-    xmlns: "http://www.w3.org/2000/svg",
-    "data-testid": "active-icon",
-    fill: "white",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
-      d: "M10.61 0c.14 0 .273.028.4.083a1.03 1.03 0 0 1 .657.953v11.928a1.03 1.03 0 0 1-.656.953c-.116.05-.25.074-.402.074-.291 0-.543-.099-.756-.296L5.833 9.77l-4.02 3.924c-.218.203-.47.305-.756.305a.995.995 0 0 1-.4-.083A1.03 1.03 0 0 1 0 12.964V1.036A1.03 1.03 0 0 1 .656.083.995.995 0 0 1 1.057 0h9.552Z",
-      fill: "#FFF"
-    }, void 0, !1, {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var ActiveIcon = ({ className }) => {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className,
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+      width: "12",
+      height: "14",
+      xmlns: "http://www.w3.org/2000/svg",
+      "data-testid": "active-icon",
+      fill: "white",
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+        d: "M10.61 0c.14 0 .273.028.4.083a1.03 1.03 0 0 1 .657.953v11.928a1.03 1.03 0 0 1-.656.953c-.116.05-.25.074-.402.074-.291 0-.543-.099-.756-.296L5.833 9.77l-4.02 3.924c-.218.203-.47.305-.756.305a.995.995 0 0 1-.4-.083A1.03 1.03 0 0 1 0 12.964V1.036A1.03 1.03 0 0 1 .656.083.995.995 0 0 1 1.057 0h9.552Z",
+        fill: "#FFF"
+      }, void 0, false, {
+        fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
+        lineNumber: 17,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
-      lineNumber: 17,
-      columnNumber: 9
+      lineNumber: 10,
+      columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
-    lineNumber: 10,
-    columnNumber: 7
-  }, this)
-}, void 0, !1, {
-  fileName: "app/components/bookmark-icons/active-icon/ActiveIcon.tsx",
-  lineNumber: 9,
-  columnNumber: 5
-}, this);
+    lineNumber: 9,
+    columnNumber: 5
+  }, this);
+};
 
 // app/components/thumbnail/thumbnail.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{ rel: "stylesheet", href: styles_default3 }], Thumbnail = (props) => {
-  let { bookmarked, addBookmarkedData, movie } = props, [isHovering, setIsHovering] = (0, import_react5.useState)(!1), [bookmark, setbookmark] = (0, import_react5.useState)(bookmarked);
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links3 = () => [{ rel: "stylesheet", href: styles_default3 }];
+var Thumbnail = (props) => {
+  const { bookmarked, addBookmarkedData, movie } = props;
+  const [isHovering, setIsHovering] = (0, import_react2.useState)(false);
+  const [bookmark, setbookmark] = (0, import_react2.useState)(bookmarked);
+  const handleMouseOver = () => {
+    var _a, _b;
+    (_a = document.querySelector(".container_bg")) == null ? void 0 : _a.classList.add("overlay");
+    (_b = document.querySelector(".container_bg")) == null ? void 0 : _b.classList.remove("hidden");
+    setIsHovering(true);
+  };
+  const handleMouseOut = () => {
+    var _a, _b;
+    (_a = document.querySelector(".container_bg")) == null ? void 0 : _a.classList.add("hidden");
+    (_b = document.querySelector(".container_bg")) == null ? void 0 : _b.classList.remove("overlay");
+    setIsHovering(false);
+  };
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
     "data-testid": "thumbnail",
     className: "thumbnail_container",
-    onMouseOver: () => {
-      var _a, _b;
-      (_a = document.querySelector(".container_bg")) == null || _a.classList.add("overlay"), (_b = document.querySelector(".container_bg")) == null || _b.classList.remove("hidden"), setIsHovering(!0);
-    },
-    onMouseOut: () => {
-      var _a, _b;
-      (_a = document.querySelector(".container_bg")) == null || _a.classList.add("hidden"), (_b = document.querySelector(".container_bg")) == null || _b.classList.remove("overlay"), setIsHovering(!1);
-    },
+    onMouseOver: handleMouseOver,
+    onMouseOut: handleMouseOut,
     onClick: () => {
-      setbookmark(!bookmark), addBookmarkedData(movie);
+      {
+        setbookmark(!bookmark);
+      }
+      addBookmarkedData(movie);
     },
     children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("picture", {
@@ -312,7 +418,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("source", {
             media: "(min-width:768px)",
             srcSet: props.large
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/thumbnail/thumbnail.tsx",
             lineNumber: 57,
             columnNumber: 9
@@ -320,7 +426,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("source", {
             media: "(min-width:465px)",
             srcSet: props.medium
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/thumbnail/thumbnail.tsx",
             lineNumber: 58,
             columnNumber: 9
@@ -330,13 +436,13 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{
             src: props.small,
             className: "thumbnail_image",
             "data-testid": "thumbnail-img"
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/thumbnail/thumbnail.tsx",
             lineNumber: 59,
             columnNumber: 9
           }, this)
         ]
-      }, void 0, !0, {
+      }, void 0, true, {
         fileName: "app/components/thumbnail/thumbnail.tsx",
         lineNumber: 56,
         columnNumber: 7
@@ -349,7 +455,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{
             src: iconPlay_default,
             alt: "thumbnail",
             className: "image"
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/thumbnail/thumbnail.tsx",
             lineNumber: 69,
             columnNumber: 11
@@ -357,40 +463,40 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
             className: "play_tag",
             children: "Play"
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/thumbnail/thumbnail.tsx",
             lineNumber: 70,
             columnNumber: 11
           }, this)
         ]
-      }, void 0, !0, {
+      }, void 0, true, {
         fileName: "app/components/thumbnail/thumbnail.tsx",
         lineNumber: 68,
         columnNumber: 9
       }, this),
       bookmark ? /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(ActiveIcon, {
         className: "bookmark"
-      }, void 0, !1, {
+      }, void 0, false, {
         fileName: "app/components/thumbnail/thumbnail.tsx",
         lineNumber: 74,
         columnNumber: 9
       }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(IdleIcon, {
         className: "bookmark",
         "data-testid": "bookmark_icon"
-      }, void 0, !1, {
+      }, void 0, false, {
         fileName: "app/components/thumbnail/thumbnail.tsx",
         lineNumber: 76,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
         className: "container_bg hidden"
-      }, void 0, !1, {
+      }, void 0, false, {
         fileName: "app/components/thumbnail/thumbnail.tsx",
         lineNumber: 79,
         columnNumber: 7
       }, this)
     ]
-  }, void 0, !0, {
+  }, void 0, true, {
     fileName: "app/components/thumbnail/thumbnail.tsx",
     lineNumber: 44,
     columnNumber: 5
@@ -398,19 +504,25 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links4 = () => [{
 };
 
 // app/components/Inputs/text/TextInput.tsx
-var import_react6 = require("react"), import_react7 = require("react"), import_react8 = __toESM(require("react"));
+var import_react3 = __toESM(require_react());
+var import_react4 = __toESM(require_react());
+var import_react5 = __toESM(require_react());
 
 // app/components/Inputs/text/styles.css
 var styles_default4 = "/build/_assets/styles-OR45PG77.css";
 
 // app/components/Inputs/text/TextInput.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links5 = () => [{ rel: "stylesheet", href: styles_default4 }], TextInput = import_react8.default.forwardRef(
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links4 = () => [{ rel: "stylesheet", href: styles_default4 }];
+var TextInput = import_react5.default.forwardRef(
   ({ children, ...props }, ref) => {
-    let [error, setError] = (0, import_react7.useState)(""), innerRef = (0, import_react6.useRef)(null), doValidation = () => {
+    const [error, setError] = (0, import_react4.useState)("");
+    const innerRef = (0, import_react3.useRef)(null);
+    const doValidation = () => {
       var _a;
-      let currentInputText = (_a = innerRef.current) == null ? void 0 : _a.value;
+      const currentInputText = (_a = innerRef.current) == null ? void 0 : _a.value;
       if (currentInputText !== void 0 && props.validationFn) {
-        let result = props.validationFn(currentInputText);
+        const result = props.validationFn(currentInputText);
         setError(result);
       }
     };
@@ -425,11 +537,11 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links5 = () => [{
           ref: innerRef,
           ...props,
           placeholder: props.placeholder,
-          required: !0,
+          required: true,
           "data-testid": "text-input",
           onFocus: doValidation,
           onChange: doValidation
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/Inputs/text/TextInput.tsx",
           lineNumber: 35,
           columnNumber: 9
@@ -438,13 +550,13 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links5 = () => [{
           "data-testid": "input-error",
           className: "text-message",
           children: error
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/Inputs/text/TextInput.tsx",
           lineNumber: 47,
           columnNumber: 9
         }, this)
       ]
-    }, void 0, !0, {
+    }, void 0, true, {
       fileName: "app/components/Inputs/text/TextInput.tsx",
       lineNumber: 34,
       columnNumber: 7
@@ -459,29 +571,79 @@ var styles_default5 = "/build/_assets/styles-DEQODY4X.css";
 // app/utils/helper.ts
 var showActiveIcon = (event) => {
   var _a;
-  let formerActiveIcon = document.querySelector(".active_icon");
-  formerActiveIcon == null || formerActiveIcon.classList.remove("active_icon"), formerActiveIcon == null || formerActiveIcon.classList.add("icon");
-  let iconId = event.currentTarget.id, iconButton = (_a = document.getElementById(iconId)) == null ? void 0 : _a.firstElementChild;
-  iconButton == null || iconButton.classList.add("active_icon"), iconButton == null || iconButton.classList.remove("icon");
-}, removeActiveIcon = () => {
-  let formerActiveIcon = document.querySelector(".active_icon");
-  formerActiveIcon == null || formerActiveIcon.classList.remove("active_icon"), formerActiveIcon == null || formerActiveIcon.classList.add("icon");
+  const formerActiveIcon = document.querySelector(".active_icon");
+  formerActiveIcon == null ? void 0 : formerActiveIcon.classList.remove("active_icon");
+  formerActiveIcon == null ? void 0 : formerActiveIcon.classList.add("icon");
+  const iconId = event.currentTarget.id;
+  const iconButton = (_a = document.getElementById(iconId)) == null ? void 0 : _a.firstElementChild;
+  iconButton == null ? void 0 : iconButton.classList.add("active_icon");
+  iconButton == null ? void 0 : iconButton.classList.remove("icon");
+};
+var removeActiveIcon = () => {
+  const formerActiveIcon = document.querySelector(".active_icon");
+  formerActiveIcon == null ? void 0 : formerActiveIcon.classList.remove("active_icon");
+  formerActiveIcon == null ? void 0 : formerActiveIcon.classList.add("icon");
 };
 
 // app/components/logIn/login.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links6 = () => [{ rel: "stylesheet", href: styles_default5 }];
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links5 = () => [{ rel: "stylesheet", href: styles_default5 }];
 
 // app/routes/index.tsx
-var import_react11 = require("react");
+var import_react9 = __toESM(require_react());
 
 // app/components/authenticatedApplication/authenticatedApplication.tsx
-var import_react10 = require("react");
+var import_react8 = __toESM(require_react());
 
 // app/components/authenticatedApplication/styles.css
 var styles_default6 = "/build/_assets/styles-IO3JY67F.css";
 
-// app/store/data.ts
-var import_zustand = __toESM(require("zustand"));
+// node_modules/zustand/esm/vanilla.mjs
+var createStoreImpl = (createState) => {
+  let state;
+  const listeners = /* @__PURE__ */ new Set();
+  const setState = (partial, replace) => {
+    const nextState = typeof partial === "function" ? partial(state) : partial;
+    if (!Object.is(nextState, state)) {
+      const previousState = state;
+      state = (replace != null ? replace : typeof nextState !== "object") ? nextState : Object.assign({}, state, nextState);
+      listeners.forEach((listener) => listener(state, previousState));
+    }
+  };
+  const getState = () => state;
+  const subscribe = (listener) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  };
+  const destroy = () => listeners.clear();
+  const api = { setState, getState, subscribe, destroy };
+  state = createState(setState, getState, api);
+  return api;
+};
+var createStore = (createState) => createState ? createStoreImpl(createState) : createStoreImpl;
+
+// node_modules/zustand/esm/index.mjs
+var import_react6 = __toESM(require_react(), 1);
+var import_with_selector = __toESM(require_with_selector(), 1);
+var { useSyncExternalStoreWithSelector } = import_with_selector.default;
+function useStore(api, selector = api.getState, equalityFn) {
+  const slice = useSyncExternalStoreWithSelector(
+    api.subscribe,
+    api.getState,
+    api.getServerState || api.getState,
+    selector,
+    equalityFn
+  );
+  (0, import_react6.useDebugValue)(slice);
+  return slice;
+}
+var createImpl = (createState) => {
+  const api = typeof createState === "function" ? createStore(createState) : createState;
+  const useBoundStore = (selector, equalityFn) => useStore(api, selector, equalityFn);
+  Object.assign(useBoundStore, api);
+  return useBoundStore;
+};
+var create = (createState) => createState ? createImpl(createState) : createImpl;
 
 // public/data.json
 var data_default = [
@@ -501,8 +663,8 @@ var data_default = [
     year: 2019,
     category: "Movie",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !0
+    isBookmarked: false,
+    isTrending: true
   },
   {
     title: "Bottom Gear",
@@ -520,8 +682,8 @@ var data_default = [
     year: 2021,
     category: "Movie",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !0
+    isBookmarked: false,
+    isTrending: true
   },
   {
     title: "Undiscovered Cities",
@@ -539,8 +701,8 @@ var data_default = [
     year: 2019,
     category: "TV Series",
     rating: "E",
-    isBookmarked: !1,
-    isTrending: !0
+    isBookmarked: false,
+    isTrending: true
   },
   {
     title: "1998",
@@ -558,8 +720,8 @@ var data_default = [
     year: 2021,
     category: "Movie",
     rating: "18+",
-    isBookmarked: !1,
-    isTrending: !0
+    isBookmarked: false,
+    isTrending: true
   },
   {
     title: "Dark Side of the Moon",
@@ -577,8 +739,8 @@ var data_default = [
     year: 2018,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !0,
-    isTrending: !0
+    isBookmarked: true,
+    isTrending: true
   },
   {
     title: "The Great Lands",
@@ -592,8 +754,8 @@ var data_default = [
     year: 2019,
     category: "Movie",
     rating: "E",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "The Diary",
@@ -607,8 +769,8 @@ var data_default = [
     year: 2019,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Earth\u2019s Untouched",
@@ -622,8 +784,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "18+",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "No Land Beyond",
@@ -637,8 +799,8 @@ var data_default = [
     year: 2019,
     category: "Movie",
     rating: "E",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "During the Hunt",
@@ -652,8 +814,8 @@ var data_default = [
     year: 2016,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Autosport the Series",
@@ -667,8 +829,8 @@ var data_default = [
     year: 2016,
     category: "TV Series",
     rating: "18+",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Same Answer II",
@@ -682,8 +844,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "E",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Below Echo",
@@ -697,8 +859,8 @@ var data_default = [
     year: 2016,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "The Rockies",
@@ -712,8 +874,8 @@ var data_default = [
     year: 2015,
     category: "TV Series",
     rating: "E",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Relentless",
@@ -727,8 +889,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "PG",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Community of Ours",
@@ -742,8 +904,8 @@ var data_default = [
     year: 2018,
     category: "TV Series",
     rating: "18+",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Van Life",
@@ -757,8 +919,8 @@ var data_default = [
     year: 2015,
     category: "Movie",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "The Heiress",
@@ -772,8 +934,8 @@ var data_default = [
     year: 2021,
     category: "Movie",
     rating: "PG",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Off the Track",
@@ -787,8 +949,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "18+",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Whispering Hill",
@@ -802,8 +964,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "E",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "112",
@@ -817,8 +979,8 @@ var data_default = [
     year: 2013,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Lone Heart",
@@ -832,8 +994,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "E",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Production Line",
@@ -847,8 +1009,8 @@ var data_default = [
     year: 2018,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Dogs",
@@ -862,8 +1024,8 @@ var data_default = [
     year: 2016,
     category: "TV Series",
     rating: "E",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Asia in 24 Days",
@@ -877,8 +1039,8 @@ var data_default = [
     year: 2020,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "The Tasty Tour",
@@ -892,8 +1054,8 @@ var data_default = [
     year: 2016,
     category: "TV Series",
     rating: "PG",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Darker",
@@ -907,8 +1069,8 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "18+",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   },
   {
     title: "Unresolved Cases",
@@ -922,8 +1084,8 @@ var data_default = [
     year: 2018,
     category: "TV Series",
     rating: "18+",
-    isBookmarked: !1,
-    isTrending: !1
+    isBookmarked: false,
+    isTrending: false
   },
   {
     title: "Mission: Saturn",
@@ -937,17 +1099,23 @@ var data_default = [
     year: 2017,
     category: "Movie",
     rating: "PG",
-    isBookmarked: !0,
-    isTrending: !1
+    isBookmarked: true,
+    isTrending: false
   }
 ];
 
 // app/store/data.ts
-var useMovieDataStore = (0, import_zustand.default)((set) => ({
-  data: data_default,
-  getBookMarkedMovies: () => data_default.filter((movie) => movie.isBookmarked),
-  getTrendingMovies: () => data_default.filter((movie) => movie.isTrending)
-}));
+var useMovieDataStore = create((set) => {
+  return {
+    data: data_default,
+    getBookMarkedMovies: () => {
+      return data_default.filter((movie) => movie.isBookmarked);
+    },
+    getTrendingMovies: () => {
+      return data_default.filter((movie) => movie.isTrending);
+    }
+  };
+});
 
 // public/assets/logo.svg
 var logo_default = "/build/_assets/logo-BWJKDGBT.svg";
@@ -956,104 +1124,116 @@ var logo_default = "/build/_assets/logo-BWJKDGBT.svg";
 var image_avatar_default = "/build/_assets/image-avatar-I5FDZYHA.jpeg";
 
 // app/components/bookmark-icons/bookmark-icon/BookmarkIcon.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookmarkIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-  className,
-  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
-    width: "17",
-    height: "20",
-    xmlns: "http://www.w3.org/2000/svg",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
-      d: "M15.387 0c.202 0 .396.04.581.119.291.115.522.295.694.542.172.247.258.52.258.82v17.038c0 .3-.086.573-.258.82a1.49 1.49 0 0 1-.694.542 1.49 1.49 0 0 1-.581.106c-.423 0-.79-.141-1.098-.423L8.46 13.959l-5.83 5.605c-.317.29-.682.436-1.097.436-.202 0-.396-.04-.581-.119a1.49 1.49 0 0 1-.694-.542A1.402 1.402 0 0 1 0 18.52V1.481c0-.3.086-.573.258-.82A1.49 1.49 0 0 1 .952.119C1.137.039 1.33 0 1.533 0h13.854Z"
-    }, void 0, !1, {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var BookmarkIcon = ({ className }) => {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className,
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+      width: "17",
+      height: "20",
+      xmlns: "http://www.w3.org/2000/svg",
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+        d: "M15.387 0c.202 0 .396.04.581.119.291.115.522.295.694.542.172.247.258.52.258.82v17.038c0 .3-.086.573-.258.82a1.49 1.49 0 0 1-.694.542 1.49 1.49 0 0 1-.581.106c-.423 0-.79-.141-1.098-.423L8.46 13.959l-5.83 5.605c-.317.29-.682.436-1.097.436-.202 0-.396-.04-.581-.119a1.49 1.49 0 0 1-.694-.542A1.402 1.402 0 0 1 0 18.52V1.481c0-.3.086-.573.258-.82A1.49 1.49 0 0 1 .952.119C1.137.039 1.33 0 1.533 0h13.854Z"
+      }, void 0, false, {
+        fileName: "app/components/bookmark-icons/bookmark-icon/BookmarkIcon.tsx",
+        lineNumber: 11,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/bookmark-icons/bookmark-icon/BookmarkIcon.tsx",
-      lineNumber: 11,
-      columnNumber: 9
+      lineNumber: 10,
+      columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/bookmark-icons/bookmark-icon/BookmarkIcon.tsx",
-    lineNumber: 10,
-    columnNumber: 7
-  }, this)
-}, void 0, !1, {
-  fileName: "app/components/bookmark-icons/bookmark-icon/BookmarkIcon.tsx",
-  lineNumber: 9,
-  columnNumber: 5
-}, this);
+    lineNumber: 9,
+    columnNumber: 5
+  }, this);
+};
 
 // app/components/bookmark-icons/series-icon/SeriesIcon.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SeriesIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-  className,
-  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
-    width: "20",
-    height: "20",
-    xmlns: "http://www.w3.org/2000/svg",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
-      d: "M20 4.481H9.08l2.7-3.278L10.22 0 7 3.909 3.78.029 2.22 1.203l2.7 3.278H0V20h20V4.481Zm-8 13.58H2V6.42h10v11.64Zm5-3.88h-2v-1.94h2v1.94Zm0-3.88h-2V8.36h2v1.94Z"
-    }, void 0, !1, {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var SeriesIcon = ({ className }) => {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className,
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+      width: "20",
+      height: "20",
+      xmlns: "http://www.w3.org/2000/svg",
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+        d: "M20 4.481H9.08l2.7-3.278L10.22 0 7 3.909 3.78.029 2.22 1.203l2.7 3.278H0V20h20V4.481Zm-8 13.58H2V6.42h10v11.64Zm5-3.88h-2v-1.94h2v1.94Zm0-3.88h-2V8.36h2v1.94Z"
+      }, void 0, false, {
+        fileName: "app/components/bookmark-icons/series-icon/SeriesIcon.tsx",
+        lineNumber: 11,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/bookmark-icons/series-icon/SeriesIcon.tsx",
-      lineNumber: 11,
-      columnNumber: 9
+      lineNumber: 10,
+      columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/bookmark-icons/series-icon/SeriesIcon.tsx",
-    lineNumber: 10,
-    columnNumber: 7
-  }, this)
-}, void 0, !1, {
-  fileName: "app/components/bookmark-icons/series-icon/SeriesIcon.tsx",
-  lineNumber: 9,
-  columnNumber: 5
-}, this);
+    lineNumber: 9,
+    columnNumber: 5
+  }, this);
+};
 
 // app/components/bookmark-icons/movies-icon/MoviesIcon.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), MoviesIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-  className,
-  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
-    width: "20",
-    height: "20",
-    xmlns: "http://www.w3.org/2000/svg",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
-      d: "M16.956 0H3.044A3.044 3.044 0 0 0 0 3.044v13.912A3.044 3.044 0 0 0 3.044 20h13.912A3.044 3.044 0 0 0 20 16.956V3.044A3.044 3.044 0 0 0 16.956 0ZM4 9H2V7h2v2Zm-2 2h2v2H2v-2Zm16-2h-2V7h2v2Zm-2 2h2v2h-2v-2Zm2-8.26V4h-2V2h1.26a.74.74 0 0 1 .74.74ZM2.74 2H4v2H2V2.74A.74.74 0 0 1 2.74 2ZM2 17.26V16h2v2H2.74a.74.74 0 0 1-.74-.74Zm16 0a.74.74 0 0 1-.74.74H16v-2h2v1.26Z"
-    }, void 0, !1, {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var MoviesIcon = ({ className }) => {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className,
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+      width: "20",
+      height: "20",
+      xmlns: "http://www.w3.org/2000/svg",
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+        d: "M16.956 0H3.044A3.044 3.044 0 0 0 0 3.044v13.912A3.044 3.044 0 0 0 3.044 20h13.912A3.044 3.044 0 0 0 20 16.956V3.044A3.044 3.044 0 0 0 16.956 0ZM4 9H2V7h2v2Zm-2 2h2v2H2v-2Zm16-2h-2V7h2v2Zm-2 2h2v2h-2v-2Zm2-8.26V4h-2V2h1.26a.74.74 0 0 1 .74.74ZM2.74 2H4v2H2V2.74A.74.74 0 0 1 2.74 2ZM2 17.26V16h2v2H2.74a.74.74 0 0 1-.74-.74Zm16 0a.74.74 0 0 1-.74.74H16v-2h2v1.26Z"
+      }, void 0, false, {
+        fileName: "app/components/bookmark-icons/movies-icon/MoviesIcon.tsx",
+        lineNumber: 11,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/bookmark-icons/movies-icon/MoviesIcon.tsx",
-      lineNumber: 11,
-      columnNumber: 9
+      lineNumber: 10,
+      columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/bookmark-icons/movies-icon/MoviesIcon.tsx",
-    lineNumber: 10,
-    columnNumber: 7
-  }, this)
-}, void 0, !1, {
-  fileName: "app/components/bookmark-icons/movies-icon/MoviesIcon.tsx",
-  lineNumber: 9,
-  columnNumber: 5
-}, this);
+    lineNumber: 9,
+    columnNumber: 5
+  }, this);
+};
 
 // app/components/bookmark-icons/trending-icon/TrendingIcon.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingIcon = ({ className }) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-  className,
-  children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
-    width: "20",
-    height: "20",
-    xmlns: "http://www.w3.org/2000/svg",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
-      d: "M8 0H1C.4 0 0 .4 0 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm0 11H1c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1ZM19 0h-7c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm0 11h-7c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1Z"
-    }, void 0, !1, {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var TrendingIcon = ({ className }) => {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+    className,
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", {
+      width: "20",
+      height: "20",
+      xmlns: "http://www.w3.org/2000/svg",
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", {
+        d: "M8 0H1C.4 0 0 .4 0 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm0 11H1c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1ZM19 0h-7c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm0 11h-7c-.6 0-1 .4-1 1v7c0 .6.4 1 1 1h7c.6 0 1-.4 1-1v-7c0-.6-.4-1-1-1Z"
+      }, void 0, false, {
+        fileName: "app/components/bookmark-icons/trending-icon/TrendingIcon.tsx",
+        lineNumber: 11,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/bookmark-icons/trending-icon/TrendingIcon.tsx",
-      lineNumber: 11,
-      columnNumber: 9
+      lineNumber: 10,
+      columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/bookmark-icons/trending-icon/TrendingIcon.tsx",
-    lineNumber: 10,
-    columnNumber: 7
-  }, this)
-}, void 0, !1, {
-  fileName: "app/components/bookmark-icons/trending-icon/TrendingIcon.tsx",
-  lineNumber: 9,
-  columnNumber: 5
-}, this);
+    lineNumber: 9,
+    columnNumber: 5
+  }, this);
+};
 
 // app/utils/data.ts
 var icons = [
@@ -1064,26 +1244,30 @@ var icons = [
 ];
 
 // app/components/authenticatedApplication/trendingMovies.tsx
-var import_react9 = require("react");
+var import_react7 = __toESM(require_react());
 
 // public/assets/thumbnailDot.svg
 var thumbnailDot_default = "/build/_assets/thumbnailDot-5XOQFNQZ.svg";
 
 // app/components/authenticatedApplication/trendingMovies.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = (props) => {
-  let { data, addBookmarkedData } = props, [slideIndex, setSlideIndex] = (0, import_react9.useState)(0), trendingMovieData = data.filter((item) => item.isTrending);
-  return (0, import_react9.useEffect)(() => {
-    let interval = setInterval(() => {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var TrendingMovies = (props) => {
+  const { data, addBookmarkedData } = props;
+  const [slideIndex, setSlideIndex] = (0, import_react7.useState)(0);
+  const trendingMovieData = data.filter((item) => item.isTrending);
+  (0, import_react7.useEffect)(() => {
+    const interval = setInterval(() => {
       setSlideIndex((prevIndex) => prevIndex + 1);
     }, 3e3);
     return () => clearInterval(interval);
-  }, []), /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
     children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
           className: "category_tag",
           children: "Trending"
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
           lineNumber: 28,
           columnNumber: 9
@@ -1103,7 +1287,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                   bookmarked: item.isBookmarked,
                   addBookmarkedData,
                   movie: item
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                   lineNumber: 32,
                   columnNumber: 15
@@ -1117,7 +1301,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "trending_movie--detailTag",
                           children: item.year
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                           lineNumber: 43,
                           columnNumber: 19
@@ -1126,12 +1310,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                           className: "trending_movie--detailTag",
                           children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                             src: thumbnailDot_default
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                             lineNumber: 45,
                             columnNumber: 21
                           }, this)
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                           lineNumber: 44,
                           columnNumber: 19
@@ -1139,7 +1323,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "trending_movie--detailTag",
                           children: item.category
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                           lineNumber: 47,
                           columnNumber: 19
@@ -1148,12 +1332,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                           className: "trending_movie--detailTag",
                           children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                             src: thumbnailDot_default
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                             lineNumber: 49,
                             columnNumber: 21
                           }, this)
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                           lineNumber: 48,
                           columnNumber: 19
@@ -1161,13 +1345,13 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "trending_movie--detailTag",
                           children: item.rating
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                           lineNumber: 51,
                           columnNumber: 19
                         }, this)
                       ]
-                    }, void 0, !0, {
+                    }, void 0, true, {
                       fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                       lineNumber: 42,
                       columnNumber: 17
@@ -1175,36 +1359,36 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
                     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
                       className: "trending_movie--name",
                       children: item.title
-                    }, void 0, !1, {
+                    }, void 0, false, {
                       fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                       lineNumber: 53,
                       columnNumber: 17
                     }, this)
                   ]
-                }, void 0, !0, {
+                }, void 0, true, {
                   fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
                   lineNumber: 41,
                   columnNumber: 15
                 }, this)
               ]
-            }, item.title, !0, {
+            }, item.title, true, {
               fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
               lineNumber: 31,
               columnNumber: 13
             }, this);
           })
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
           lineNumber: 29,
           columnNumber: 9
         }, this)
       ]
-    }, void 0, !0, {
+    }, void 0, true, {
       fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
       lineNumber: 27,
       columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/authenticatedApplication/trendingMovies.tsx",
     lineNumber: 26,
     columnNumber: 5
@@ -1212,15 +1396,17 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), TrendingMovies = 
 };
 
 // app/components/authenticatedApplication/selectedMovies.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = (props) => {
-  let { data, addBookmarkedData } = props, movieData = data.filter((movie) => movie.category === "Movie");
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var SelectedMovies = (props) => {
+  const { data, addBookmarkedData } = props;
+  const movieData = data.filter((movie) => movie.category === "Movie");
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
     children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
           className: "category_tag",
           children: "Movies"
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
           lineNumber: 21,
           columnNumber: 9
@@ -1242,12 +1428,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                     bookmarked: item.isBookmarked,
                     addBookmarkedData,
                     movie: item
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                     lineNumber: 26,
                     columnNumber: 17
                   }, this)
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                   lineNumber: 25,
                   columnNumber: 15
@@ -1260,7 +1446,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                         className: "recommended_thumbnail--detail",
                         children: item.year
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                         lineNumber: 38,
                         columnNumber: 19
@@ -1269,12 +1455,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                         className: "recommended_thumbnail--detail",
                         children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                           src: thumbnailDot_default
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                           lineNumber: 40,
                           columnNumber: 21
                         }, this)
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                         lineNumber: 39,
                         columnNumber: 19
@@ -1282,7 +1468,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                         className: "recommended_thumbnail--detail",
                         children: item.category
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                         lineNumber: 42,
                         columnNumber: 19
@@ -1291,12 +1477,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                         className: "recommended_thumbnail--detail",
                         children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                           src: thumbnailDot_default
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                           lineNumber: 44,
                           columnNumber: 21
                         }, this)
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                         lineNumber: 43,
                         columnNumber: 19
@@ -1304,18 +1490,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                         className: "recommended_thumbnail--detail",
                         children: item.rating
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                         lineNumber: 46,
                         columnNumber: 19
                       }, this)
                     ]
-                  }, void 0, !0, {
+                  }, void 0, true, {
                     fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                     lineNumber: 37,
                     columnNumber: 17
                   }, this)
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                   lineNumber: 36,
                   columnNumber: 15
@@ -1323,30 +1509,30 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
                 /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
                   className: "recommended_thumbnail--name",
                   children: item.title
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
                   lineNumber: 49,
                   columnNumber: 15
                 }, this)
               ]
-            }, item.title, !0, {
+            }, item.title, true, {
               fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
               lineNumber: 24,
               columnNumber: 13
             }, this);
           })
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
           lineNumber: 22,
           columnNumber: 9
         }, this)
       ]
-    }, void 0, !0, {
+    }, void 0, true, {
       fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
       lineNumber: 20,
       columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/authenticatedApplication/selectedMovies.tsx",
     lineNumber: 19,
     columnNumber: 5
@@ -1354,15 +1540,17 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedMovies = 
 };
 
 // app/components/authenticatedApplication/selectedTVSeries.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries = (props) => {
-  let { data, addBookmarkedData } = props, serieData = data.filter((serie) => serie.category === "TV Series");
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var SelectedTVSeries = (props) => {
+  const { data, addBookmarkedData } = props;
+  const serieData = data.filter((serie) => serie.category === "TV Series");
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
     children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
       children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
           className: "category_tag",
           children: "TV Series"
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
           lineNumber: 20,
           columnNumber: 9
@@ -1384,12 +1572,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                     bookmarked: item.isBookmarked,
                     addBookmarkedData,
                     movie: item
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                     lineNumber: 25,
                     columnNumber: 17
                   }, this)
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                   lineNumber: 24,
                   columnNumber: 15
@@ -1402,7 +1590,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                         className: "recommended_thumbnail--detail",
                         children: item.year
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                         lineNumber: 37,
                         columnNumber: 19
@@ -1411,12 +1599,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                         className: "recommended_thumbnail--detail",
                         children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                           src: thumbnailDot_default
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                           lineNumber: 39,
                           columnNumber: 21
                         }, this)
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                         lineNumber: 38,
                         columnNumber: 19
@@ -1424,7 +1612,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                         className: "recommended_thumbnail--detail",
                         children: item.category
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                         lineNumber: 41,
                         columnNumber: 19
@@ -1433,12 +1621,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                         className: "recommended_thumbnail--detail",
                         children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                           src: thumbnailDot_default
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                           lineNumber: 43,
                           columnNumber: 21
                         }, this)
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                         lineNumber: 42,
                         columnNumber: 19
@@ -1446,18 +1634,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                         className: "recommended_thumbnail--detail",
                         children: item.rating
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                         lineNumber: 45,
                         columnNumber: 19
                       }, this)
                     ]
-                  }, void 0, !0, {
+                  }, void 0, true, {
                     fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                     lineNumber: 36,
                     columnNumber: 17
                   }, this)
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                   lineNumber: 35,
                   columnNumber: 15
@@ -1465,30 +1653,30 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
                 /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
                   className: "recommended_thumbnail--name",
                   children: item.title
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
                   lineNumber: 48,
                   columnNumber: 15
                 }, this)
               ]
-            }, item.title, !0, {
+            }, item.title, true, {
               fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
               lineNumber: 23,
               columnNumber: 13
             }, this);
           })
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
           lineNumber: 21,
           columnNumber: 9
         }, this)
       ]
-    }, void 0, !0, {
+    }, void 0, true, {
       fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
       lineNumber: 19,
       columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/components/authenticatedApplication/selectedTVSeries.tsx",
     lineNumber: 18,
     columnNumber: 5
@@ -1496,14 +1684,15 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), SelectedTVSeries 
 };
 
 // app/components/authenticatedApplication/recommended.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (props) => {
-  let { data, addBookmarkedData } = props;
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var Recommended = (props) => {
+  const { data, addBookmarkedData } = props;
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
     children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
         className: "category_tag",
         children: "Recommended for you"
-      }, void 0, !1, {
+      }, void 0, false, {
         fileName: "app/components/authenticatedApplication/recommended.tsx",
         lineNumber: 18,
         columnNumber: 7
@@ -1529,12 +1718,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                         bookmarked: item.isBookmarked,
                         addBookmarkedData,
                         movie: item
-                      }, void 0, !1, {
+                      }, void 0, false, {
                         fileName: "app/components/authenticatedApplication/recommended.tsx",
                         lineNumber: 27,
                         columnNumber: 23
                       }, this)
-                    }, void 0, !1, {
+                    }, void 0, false, {
                       fileName: "app/components/authenticatedApplication/recommended.tsx",
                       lineNumber: 26,
                       columnNumber: 21
@@ -1547,7 +1736,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                             className: "recommended_thumbnail--detail",
                             children: item.year
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/recommended.tsx",
                             lineNumber: 39,
                             columnNumber: 25
@@ -1556,12 +1745,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                             className: "recommended_thumbnail--detail",
                             children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                               src: thumbnailDot_default
-                            }, void 0, !1, {
+                            }, void 0, false, {
                               fileName: "app/components/authenticatedApplication/recommended.tsx",
                               lineNumber: 41,
                               columnNumber: 27
                             }, this)
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/recommended.tsx",
                             lineNumber: 40,
                             columnNumber: 25
@@ -1569,7 +1758,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                             className: "recommended_thumbnail--detail",
                             children: item.category
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/recommended.tsx",
                             lineNumber: 43,
                             columnNumber: 25
@@ -1578,12 +1767,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                             className: "recommended_thumbnail--detail",
                             children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                               src: thumbnailDot_default
-                            }, void 0, !1, {
+                            }, void 0, false, {
                               fileName: "app/components/authenticatedApplication/recommended.tsx",
                               lineNumber: 45,
                               columnNumber: 27
                             }, this)
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/recommended.tsx",
                             lineNumber: 44,
                             columnNumber: 25
@@ -1591,18 +1780,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                             className: "recommended_thumbnail--detail",
                             children: item.rating
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/recommended.tsx",
                             lineNumber: 47,
                             columnNumber: 25
                           }, this)
                         ]
-                      }, void 0, !0, {
+                      }, void 0, true, {
                         fileName: "app/components/authenticatedApplication/recommended.tsx",
                         lineNumber: 38,
                         columnNumber: 23
                       }, this)
-                    }, void 0, !1, {
+                    }, void 0, false, {
                       fileName: "app/components/authenticatedApplication/recommended.tsx",
                       lineNumber: 37,
                       columnNumber: 21
@@ -1610,40 +1799,40 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
                     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
                       className: "recommended_thumbnail--name",
                       children: item.title
-                    }, void 0, !1, {
+                    }, void 0, false, {
                       fileName: "app/components/authenticatedApplication/recommended.tsx",
                       lineNumber: 50,
                       columnNumber: 21
                     }, this)
                   ]
-                }, item.title, !0, {
+                }, item.title, true, {
                   fileName: "app/components/authenticatedApplication/recommended.tsx",
                   lineNumber: 25,
                   columnNumber: 19
                 }, this);
               })
-            }, void 0, !1, {
+            }, void 0, false, {
               fileName: "app/components/authenticatedApplication/recommended.tsx",
               lineNumber: 23,
               columnNumber: 15
             }, this)
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/recommended.tsx",
             lineNumber: 22,
             columnNumber: 13
           }, this)
-        }, void 0, !1, {
+        }, void 0, false, {
           fileName: "app/components/authenticatedApplication/recommended.tsx",
           lineNumber: 21,
           columnNumber: 11
         }, this)
-      }, void 0, !1, {
+      }, void 0, false, {
         fileName: "app/components/authenticatedApplication/recommended.tsx",
         lineNumber: 19,
         columnNumber: 7
       }, this)
     ]
-  }, void 0, !0, {
+  }, void 0, true, {
     fileName: "app/components/authenticatedApplication/recommended.tsx",
     lineNumber: 17,
     columnNumber: 5
@@ -1651,10 +1840,14 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), Recommended = (pr
 };
 
 // app/components/authenticatedApplication/BookmarkedMovies.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (props) => {
-  let { data, addBookmarkedData } = props, storeData = data, bookmarkedMovieData = storeData.filter(
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var BookMarked = (props) => {
+  const { data, addBookmarkedData } = props;
+  const storeData = data;
+  const bookmarkedMovieData = storeData.filter(
     (item) => item.isBookmarked && item.category === "Movie"
-  ), bookmarkedSerieData = storeData.filter(
+  );
+  const bookmarkedSerieData = storeData.filter(
     (item) => item.isBookmarked && item.category === "TV Series"
   );
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
@@ -1665,7 +1858,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
             className: "category_tag",
             children: "Bookmarked Movies"
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
             lineNumber: 28,
             columnNumber: 9
@@ -1687,12 +1880,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                       bookmarked: item.isBookmarked,
                       addBookmarkedData,
                       movie: item
-                    }, void 0, !1, {
+                    }, void 0, false, {
                       fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                       lineNumber: 33,
                       columnNumber: 17
                     }, this)
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                     lineNumber: 32,
                     columnNumber: 15
@@ -1705,7 +1898,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "recommended_thumbnail--detail",
                           children: item.year
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 45,
                           columnNumber: 19
@@ -1714,12 +1907,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                           className: "recommended_thumbnail--detail",
                           children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                             src: thumbnailDot_default
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                             lineNumber: 47,
                             columnNumber: 21
                           }, this)
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 46,
                           columnNumber: 19
@@ -1727,7 +1920,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "recommended_thumbnail--detail",
                           children: item.category
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 49,
                           columnNumber: 19
@@ -1736,12 +1929,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                           className: "recommended_thumbnail--detail",
                           children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                             src: thumbnailDot_default
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                             lineNumber: 51,
                             columnNumber: 21
                           }, this)
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 50,
                           columnNumber: 19
@@ -1749,18 +1942,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "recommended_thumbnail--detail",
                           children: item.rating
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 53,
                           columnNumber: 19
                         }, this)
                       ]
-                    }, void 0, !0, {
+                    }, void 0, true, {
                       fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                       lineNumber: 44,
                       columnNumber: 17
                     }, this)
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                     lineNumber: 43,
                     columnNumber: 15
@@ -1768,25 +1961,25 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                   /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
                     className: "recommended_thumbnail--name",
                     children: item.title
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                     lineNumber: 56,
                     columnNumber: 15
                   }, this)
                 ]
-              }, item.title, !0, {
+              }, item.title, true, {
                 fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                 lineNumber: 31,
                 columnNumber: 13
               }, this);
             })
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
             lineNumber: 29,
             columnNumber: 9
           }, this)
         ]
-      }, void 0, !0, {
+      }, void 0, true, {
         fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
         lineNumber: 27,
         columnNumber: 7
@@ -1796,7 +1989,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
             className: "category_tag",
             children: "Bookmarked TV Series"
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
             lineNumber: 62,
             columnNumber: 9
@@ -1818,12 +2011,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                       bookmarked: item.isBookmarked,
                       addBookmarkedData,
                       movie: item
-                    }, void 0, !1, {
+                    }, void 0, false, {
                       fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                       lineNumber: 67,
                       columnNumber: 17
                     }, this)
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                     lineNumber: 66,
                     columnNumber: 15
@@ -1836,7 +2029,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "recommended_thumbnail--detail",
                           children: item.year
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 79,
                           columnNumber: 19
@@ -1845,12 +2038,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                           className: "recommended_thumbnail--detail",
                           children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                             src: thumbnailDot_default
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                             lineNumber: 81,
                             columnNumber: 21
                           }, this)
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 80,
                           columnNumber: 19
@@ -1858,7 +2051,7 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "recommended_thumbnail--detail",
                           children: item.category
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 83,
                           columnNumber: 19
@@ -1867,12 +2060,12 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                           className: "recommended_thumbnail--detail",
                           children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                             src: thumbnailDot_default
-                          }, void 0, !1, {
+                          }, void 0, false, {
                             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                             lineNumber: 85,
                             columnNumber: 21
                           }, this)
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 84,
                           columnNumber: 19
@@ -1880,18 +2073,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", {
                           className: "recommended_thumbnail--detail",
                           children: item.rating
-                        }, void 0, !1, {
+                        }, void 0, false, {
                           fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                           lineNumber: 87,
                           columnNumber: 19
                         }, this)
                       ]
-                    }, void 0, !0, {
+                    }, void 0, true, {
                       fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                       lineNumber: 78,
                       columnNumber: 17
                     }, this)
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                     lineNumber: 77,
                     columnNumber: 15
@@ -1899,31 +2092,31 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
                   /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", {
                     className: "recommended_thumbnail--name",
                     children: item.title
-                  }, void 0, !1, {
+                  }, void 0, false, {
                     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                     lineNumber: 90,
                     columnNumber: 15
                   }, this)
                 ]
-              }, item.title, !0, {
+              }, item.title, true, {
                 fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
                 lineNumber: 65,
                 columnNumber: 13
               }, this);
             })
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
             lineNumber: 63,
             columnNumber: 9
           }, this)
         ]
-      }, void 0, !0, {
+      }, void 0, true, {
         fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
         lineNumber: 61,
         columnNumber: 7
       }, this)
     ]
-  }, void 0, !0, {
+  }, void 0, true, {
     fileName: "app/components/authenticatedApplication/BookmarkedMovies.tsx",
     lineNumber: 26,
     columnNumber: 5
@@ -1931,78 +2124,98 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), BookMarked = (pro
 };
 
 // app/components/authenticatedApplication/authenticatedApplication.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links7 = () => [{ rel: "stylesheet", href: styles_default6 }], AuthenticatedApplication = () => {
-  let listItems = icons.map((item) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", {
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links6 = () => [{ rel: "stylesheet", href: styles_default6 }];
+var AuthenticatedApplication = () => {
+  const listItems = icons.map((item) => /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", {
     className: "icon_button",
     onClick: (event) => {
-      setCategory(item.name), showActiveIcon(event);
+      setCategory(item.name);
+      showActiveIcon(event);
     },
     id: item.id,
     children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(item.icon, {
       className: "icon"
-    }, void 0, !1, {
+    }, void 0, false, {
       fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
       lineNumber: 33,
       columnNumber: 7
     }, this)
-  }, item.id, !1, {
+  }, item.id, false, {
     fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
     lineNumber: 24,
     columnNumber: 5
-  }, this)), [searchfield, setsearchfield] = (0, import_react10.useState)(""), filteredData = useMovieDataStore((state) => state.data).filter((movie) => movie.title.toLowerCase().includes(searchfield.toLowerCase())), addBookmarkedData = (item) => {
+  }, this));
+  const [searchField, setsearchfield] = (0, import_react8.useState)("");
+  const storeData = useMovieDataStore((state) => state.data);
+  const filteredData = storeData.filter((movie) => {
+    return movie.title.toLowerCase().includes(searchField.toLowerCase());
+  });
+  const addBookmarkedData = (item) => {
     filteredData.push(item);
-  }, [category, setCategory] = (0, import_react10.useState)("trending"), categories;
-  return category === "trending" ? categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
-      children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(TrendingMovies, {
-          data: filteredData,
-          addBookmarkedData
-        }, void 0, !1, {
-          fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-          lineNumber: 59,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Recommended, {
-          data: filteredData,
-          addBookmarkedData
-        }, void 0, !1, {
-          fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-          lineNumber: 60,
-          columnNumber: 11
-        }, this)
-      ]
-    }, void 0, !0, {
+  };
+  const [category, setCategory] = (0, import_react8.useState)("trending");
+  let categories;
+  if (category === "trending") {
+    categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, {
+      children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+        children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(TrendingMovies, {
+            data: filteredData,
+            addBookmarkedData
+          }, void 0, false, {
+            fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
+            lineNumber: 59,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Recommended, {
+            data: filteredData,
+            addBookmarkedData
+          }, void 0, false, {
+            fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
+            lineNumber: 60,
+            columnNumber: 11
+          }, this)
+        ]
+      }, void 0, true, {
+        fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
+        lineNumber: 58,
+        columnNumber: 9
+      }, this)
+    }, void 0, false, {
       fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-      lineNumber: 58,
-      columnNumber: 9
-    }, this)
-  }, void 0, !1, {
-    fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-    lineNumber: 57,
-    columnNumber: 7
-  }, this) : category === "movies" ? categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(SelectedMovies, {
-    data: filteredData,
-    addBookmarkedData
-  }, void 0, !1, {
-    fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-    lineNumber: 65,
-    columnNumber: 18
-  }, this) : category === "series" ? categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(SelectedTVSeries, {
-    data: filteredData,
-    addBookmarkedData
-  }, void 0, !1, {
-    fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-    lineNumber: 67,
-    columnNumber: 18
-  }, this) : category === "bookmark" && (categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(BookMarked, {
-    data: filteredData,
-    addBookmarkedData
-  }, void 0, !1, {
-    fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
-    lineNumber: 69,
-    columnNumber: 18
-  }, this)), /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
+      lineNumber: 57,
+      columnNumber: 7
+    }, this);
+  } else if (category === "movies") {
+    categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(SelectedMovies, {
+      data: filteredData,
+      addBookmarkedData
+    }, void 0, false, {
+      fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
+      lineNumber: 65,
+      columnNumber: 18
+    }, this);
+  } else if (category === "series") {
+    categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(SelectedTVSeries, {
+      data: filteredData,
+      addBookmarkedData
+    }, void 0, false, {
+      fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
+      lineNumber: 67,
+      columnNumber: 18
+    }, this);
+  } else if (category === "bookmark") {
+    categories = /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(BookMarked, {
+      data: filteredData,
+      addBookmarkedData
+    }, void 0, false, {
+      fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
+      lineNumber: 69,
+      columnNumber: 18
+    }, this);
+  }
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
     className: "authenticated_user",
     children: [
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
@@ -2014,16 +2227,17 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links7 = () => [{
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", {
                 className: "logo",
                 onClick: () => {
-                  setCategory("trending"), removeActiveIcon();
+                  setCategory("trending");
+                  removeActiveIcon();
                 },
                 children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
                   src: logo_default
-                }, void 0, !1, {
+                }, void 0, false, {
                   fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
                   lineNumber: 83,
                   columnNumber: 13
                 }, this)
-              }, void 0, !1, {
+              }, void 0, false, {
                 fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
                 lineNumber: 76,
                 columnNumber: 11
@@ -2031,13 +2245,13 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links7 = () => [{
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
                 className: "navigation_icons",
                 children: listItems
-              }, void 0, !1, {
+              }, void 0, false, {
                 fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
                 lineNumber: 85,
                 columnNumber: 11
               }, this)
             ]
-          }, void 0, !0, {
+          }, void 0, true, {
             fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
             lineNumber: 75,
             columnNumber: 9
@@ -2046,18 +2260,18 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links7 = () => [{
             children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("img", {
               src: image_avatar_default,
               className: "logo"
-            }, void 0, !1, {
+            }, void 0, false, {
               fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
               lineNumber: 88,
               columnNumber: 11
             }, this)
-          }, void 0, !1, {
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
             lineNumber: 87,
             columnNumber: 9
           }, this)
         ]
-      }, void 0, !0, {
+      }, void 0, true, {
         fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
         lineNumber: 74,
         columnNumber: 7
@@ -2066,21 +2280,22 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links7 = () => [{
         className: "category_container",
         children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(SearchInput, {
-            searchfiled: searchfield
-          }, void 0, !1, {
+            searchFiled: searchField,
+            setsearchfield
+          }, void 0, false, {
             fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
             lineNumber: 92,
             columnNumber: 9
           }, this),
           categories
         ]
-      }, void 0, !0, {
+      }, void 0, true, {
         fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
         lineNumber: 91,
         columnNumber: 7
       }, this)
     ]
-  }, void 0, !0, {
+  }, void 0, true, {
     fileName: "app/components/authenticatedApplication/authenticatedApplication.tsx",
     lineNumber: 73,
     columnNumber: 5
@@ -2088,67 +2303,51 @@ var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links7 = () => [{
 };
 
 // app/routes/index.tsx
-var import_jsx_dev_runtime = require("react/jsx-dev-runtime"), links8 = () => [
-  ...links2(),
-  ...links7(),
-  ...links3(),
+var import_jsx_dev_runtime = __toESM(require_jsx_dev_runtime());
+var links7 = () => [
+  ...links(),
   ...links6(),
+  ...links2(),
   ...links5(),
-  ...links4()
+  ...links4(),
+  ...links3()
 ];
 function Index() {
-  let [isLoggedIn, setIsLoggedIn] = (0, import_react11.useState)(!0);
+  const [isLoggedIn, setIsLoggedIn] = (0, import_react9.useState)(true);
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", {
     style: { fontFamily: "system-ui, sans-serif", lineHeight: "1.4" },
     className: "app_container",
-    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(AuthenticatedApplication, {}, void 0, !1, {
+    children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(AuthenticatedApplication, {}, void 0, false, {
       fileName: "app/routes/index.tsx",
       lineNumber: 36,
       columnNumber: 7
     }, this)
-  }, void 0, !1, {
+  }, void 0, false, {
     fileName: "app/routes/index.tsx",
     lineNumber: 30,
     columnNumber: 5
   }, this);
 }
-
-// server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { version: "27b0f4db", entry: { module: "/build/entry.client-LDU3YQWJ.js", imports: ["/build/_shared/chunk-EDY63ZPH.js", "/build/_shared/chunk-IE366Y5W.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-Q3BYFKCB.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/auth/index": { id: "routes/auth/index", parentId: "root", path: "auth", index: !0, caseSensitive: void 0, module: "/build/routes/auth/index-R6VNCK5C.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-MKZJYNQ6.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, url: "/build/manifest-27B0F4DB.js" };
-
-// server-entry-module:@remix-run/dev/server-build
-var assetsBuildDirectory = "public/build", publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
-  root: {
-    id: "root",
-    parentId: void 0,
-    path: "",
-    index: void 0,
-    caseSensitive: void 0,
-    module: root_exports
-  },
-  "routes/auth/index": {
-    id: "routes/auth/index",
-    parentId: "root",
-    path: "auth",
-    index: !0,
-    caseSensitive: void 0,
-    module: auth_exports
-  },
-  "routes/index": {
-    id: "routes/index",
-    parentId: "root",
-    path: void 0,
-    index: !0,
-    caseSensitive: void 0,
-    module: routes_exports
-  }
+export {
+  Index as default,
+  links7 as links
 };
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  assets,
-  assetsBuildDirectory,
-  entry,
-  publicPath,
-  routes
-});
-//# sourceMappingURL=server.js.map
+/**
+ * @license React
+ * use-sync-external-store-shim.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+/**
+ * @license React
+ * use-sync-external-store-shim/with-selector.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+//# sourceMappingURL=/build/routes/index-6NFYL7MI.js.map

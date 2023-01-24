@@ -8,14 +8,12 @@ export const links = () => [{ rel: 'stylesheet', href: styles }];
 type SearchInputProps = {
   children?: React.ReactNode;
   id?: string;
-  searchFiled: string;
-  setsearchfield: (active: string) => void;
+  searchfiled: string;
 };
 
 export const SearchInput = React.forwardRef(
   ({ children, ...props }: SearchInputProps, ref: ForwardedRef<HTMLInputElement>) => {
-    //
-    const { setsearchfield } = props;
+    const [searchfield, setsearchfield] = useState('');
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
       setsearchfield(e.currentTarget.value);

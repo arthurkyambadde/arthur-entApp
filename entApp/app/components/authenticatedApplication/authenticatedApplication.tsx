@@ -36,12 +36,12 @@ export const AuthenticatedApplication = () => {
 
   //search functionality logic
 
-  const [searchField, setsearchfield] = useState('');
+  const [searchfield, setsearchfield] = useState('');
 
   const storeData = useMovieDataStore((state) => state.data);
 
   const filteredData = storeData.filter((movie) => {
-    return movie.title.toLowerCase().includes(searchField.toLowerCase());
+    return movie.title.toLowerCase().includes(searchfield.toLowerCase());
   });
 
   const addBookmarkedData = (item: Movie) => {
@@ -89,7 +89,7 @@ export const AuthenticatedApplication = () => {
         </div>
       </div>
       <div className="category_container">
-        <SearchInput searchFiled={searchField} setsearchfield={setsearchfield} />
+        <SearchInput searchfiled={searchfield} />
         {categories}
       </div>
     </div>
