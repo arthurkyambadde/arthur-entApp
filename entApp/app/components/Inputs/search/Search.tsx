@@ -1,6 +1,7 @@
 import { ForwardedRef, useState } from 'react';
 import React from 'react';
-import styles from 'styles.css';
+//correctly imported
+import styles from './styles.css';
 
 export const links = () => [{ rel: 'stylesheet', href: styles }];
 
